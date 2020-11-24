@@ -1,3 +1,5 @@
+N,M = 0,0
+
 def solution(M,pair) :
     if False not in student : 
         return 1
@@ -15,10 +17,10 @@ def solution(M,pair) :
         i += 2
     return ret
 
-
-C = int(input())
-for i in range(C) :
-    N,M = [int(x) for x in input().split()]
-    student = [False]*(N)
-    pair = list(map(int, input().split()))
-    print(solution(M*2,pair))
+if __name__ == '__main__' :
+    C = int(input())
+    for i in range(C) :
+        N,M = [int(x) for x in input().split()]
+        student = [False]*(N)
+        pair = list(map(int, input().split()))
+        print(solution(M*2,pair))
