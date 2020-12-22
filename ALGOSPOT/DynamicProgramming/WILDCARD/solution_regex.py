@@ -1,7 +1,6 @@
 import re
 
-print('???')
-C = int(input("AA : "))
+C = int(input())
 for _ in range(C) :
     print('???')
     W = input()
