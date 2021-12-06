@@ -19,9 +19,13 @@ for tc in range(T):
     N = int(input())
     up_scores = list(map(int, input().split()))
     down_scores = list(map(int, input().split()))
-    dp = [[0 for _ in range(N)] for _ in range(2)]
-    for i in range(N):
-        dp[0][i] = max(dp[1][i-1], dp[1][i-2]) + up_scores[i]
-        dp[1][i] = max(dp[0][i-1], dp[0][i-2]) + down_scores[i]
+    if N == 1:
+        print(max(up_scores[0], down_scores[0]))
+        continue
+
+    dp = [[0 for _ in range(N+2)] for _ in range(2)]
+    for i in range(2, N+2):
+        dp[0][i] = max(dp[1][i-1], dp[1][i-2]) + up_scores[i-2]
+        dp[1][i] = max(dp[0][i-1], dp[0][i-2]) + down_scores[i-2]
     print(max(dp[0][-1], dp[1][-1]))
 
