@@ -28,4 +28,3 @@ for tc in range(T):
         dp[0][i] = max(dp[1][i-1], dp[1][i-2]) + up_scores[i-2]
         dp[1][i] = max(dp[0][i-1], dp[0][i-2]) + down_scores[i-2]
     print(max(dp[0][-1], dp[1][-1]))
-
