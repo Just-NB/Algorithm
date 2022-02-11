@@ -9,6 +9,7 @@ R, C = 0, 1
 # 1-1. 과연 좋아진걸까?
 # 2. 같은 함수를 이용하여 dfs / bfs를 구현해보고 비교해보고 싶었다.
 
+
 def make_string(a: list, b: list):
     return str(a[0]) + str(a[1]) + str(b[0]) + str(b[1])
 
@@ -17,9 +18,9 @@ def move(board, a, b, d):
     dr = [(-1, 0), (1, 0), (0, -1), (0, 1)]
     '''
     :param board: 맵, 0 -이동가능, 1 -이동 불가능
-    :param pos: 로봇 좌표, [0] 은 왼쪽/위 에 있음. [1] 은 오른쪽/아래에 있음
+    :param pos: 로봇 좌표, a 은 왼쪽/위 에 있음. b 은 오른쪽/아래에 있음
     :param d: 이동방향, 0,1,2,3 : 상,하,좌,우
-    :return: 이동 후 좌표, [0] 은 왼쪽/위 에 있음. [1] 은 오른쪽/아래에 있음
+    :return: 이동 후 좌표, a 은 왼쪽/위 에 있음. b 은 오른쪽/아래에 있음
     '''
     nxt_a, nxt_b = copy.deepcopy(a), copy.deepcopy(b)
     nxt_a[R] += dr[d][R]
@@ -134,93 +135,93 @@ print(solution([[0, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], 
 
 
 
-#
-# from queue import Queue
-#
-#
-# def solution(board):
-#     answer = 0
-#     size = len(board)
-#     p1, p2 = (0, 0), (0, 1)
-#
-#     def isValid(p1, p2):
-#         Y, X = 0, 1
-#         if 0 <= p1[Y] < size and 0 <= p1[X] < size and 0 <= p2[Y] < size and 0 <= p2[X] < size:
-#             if board[p1[Y]][p1[X]] == 0 and board[p2[Y]][p2[X]] == 0:
-#                 return True
-#         return False
-#
-#     def move(p1, p2):
-#         Y, X = 0, 1
-#         DELTAS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-#         cand = []
-#         for dy, dx in DELTAS:
-#             try:
-#                 nxt1 = (p1[Y] + dy, p1[X] + dx)
-#                 nxt2 = (p2[Y] + dy, p2[X] + dx)
-#                 if isValid(nxt1, nxt2):
-#                     cand.append((nxt1, nxt2))
-#             except:
-#                 print(p1, dy, dx, p2)
-#         return cand
-#
-#     def rotate(p1, p2):
-#         cand = []
-#         for d in [-1, 1]:
-#             Y, X = 0, 1
-#             if p1[Y] == p2[Y]:
-#                 nxt1 = (p1[Y] + d, p1[X]) # p1고정, p2움직임.
-#                 nxt2 = (p2[Y] + d, p2[X])
-#             else:
-#                 nxt1 = (p1[Y], p1[X] + d)
-#                 nxt2 = (p2[Y], p2[X] + d)
-#
-#             if isValid(nxt1, nxt2):
-#                 cand.append((p1, nxt1))
-#                 cand.append((p2, nxt2))
-#         return cand
-#
-#     # def rotate(p1, p2):
-#     #     # 가로로 있을때
-#     #     Y, X = 0, 1
-#     #     cand = []
-#     #     if p1[Y] == p2[Y]:
-#     #         UP, DOWN = -1, 1
-#     #         for d in [UP, DOWN]:
-#     #             nxt1 = (p1[Y] + d, p1[X])
-#     #             nxt2 = (p2[Y] + d, p2[X])
-#     #             if isValid(nxt1, nxt2):
-#     #                 cand.append((p1, nxt1))
-#     #                 cand.append((p2, nxt2))
-#     #     else:
-#     #         # 세로로 있을 때
-#     #         LEFT, RIGHT = -1, 1
-#     #         for d in [LEFT, RIGHT]:
-#     #             nxt1 = (p1[Y], p1[X] + d)
-#     #             nxt2 = (p2[Y], p2[X] + d)
-#     #             if isValid(nxt1, nxt2):
-#     #                 cand.append((p1, nxt1))
-#     #                 cand.append((p2, nxt2))
-#     #     return cand
-#
-#     queue = Queue()
-#     queue.put((p1, p2, 0))
-#     done = set([(p1, p2)])
-#     # BFS
-#     while queue.empty() == False:
-#         q = queue.get()
-#         if q[0] == (size - 1, size - 1) or q[1] == (size - 1, size - 1):
-#             return q[2]
-#         # 움직이고 넣는다.
-#         for cand in move(q[0], q[1]):
-#             if cand not in done:
-#                 done.add(cand)
-#                 queue.put((cand[0], cand[1], q[2] + 1))
-#
-#         # 회전하고 넣는다.
-#         for cand in rotate(q[0], q[1]):
-#             if cand not in done:
-#                 done.add(cand)
-#                 queue.put((*cand, q[2] + 1))
-#
-#     return answer
+
+from queue import Queue
+
+
+def solution(board):
+    answer = 0
+    size = len(board)
+    p1, p2 = (0, 0), (0, 1)
+
+    def isValid(p1, p2):
+        Y, X = 0, 1
+        if 0 <= p1[Y] < size and 0 <= p1[X] < size and 0 <= p2[Y] < size and 0 <= p2[X] < size:
+            if board[p1[Y]][p1[X]] == 0 and board[p2[Y]][p2[X]] == 0:
+                return True
+        return False
+
+    def move(p1, p2):
+        Y, X = 0, 1
+        DELTAS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        cand = []
+        for dy, dx in DELTAS:
+            try:
+                nxt1 = (p1[Y] + dy, p1[X] + dx)
+                nxt2 = (p2[Y] + dy, p2[X] + dx)
+                if isValid(nxt1, nxt2):
+                    cand.append((nxt1, nxt2))
+            except:
+                print(p1, dy, dx, p2)
+        return cand
+
+    def rotate(p1, p2):
+        cand = []
+        for d in [-1, 1]:
+            Y, X = 0, 1
+            if p1[Y] == p2[Y]:
+                nxt1 = (p1[Y] + d, p1[X]) # p1고정, p2움직임.
+                nxt2 = (p2[Y] + d, p2[X])
+            else:
+                nxt1 = (p1[Y], p1[X] + d)
+                nxt2 = (p2[Y], p2[X] + d)
+
+            if isValid(nxt1, nxt2):
+                cand.append((p1, nxt1))
+                cand.append((p2, nxt2))
+        return cand
+
+    def rotate(p1, p2):
+        # 가로로 있을때
+        Y, X = 0, 1
+        cand = []
+        if p1[Y] == p2[Y]:
+            UP, DOWN = -1, 1
+            for d in [UP, DOWN]:
+                nxt1 = (p1[Y] + d, p1[X])
+                nxt2 = (p2[Y] + d, p2[X])
+                if isValid(nxt1, nxt2):
+                    cand.append((p1, nxt1))
+                    cand.append((p2, nxt2))
+        else:
+            # 세로로 있을 때
+            LEFT, RIGHT = -1, 1
+            for d in [LEFT, RIGHT]:
+                nxt1 = (p1[Y], p1[X] + d)
+                nxt2 = (p2[Y], p2[X] + d)
+                if isValid(nxt1, nxt2):
+                    cand.append((p1, nxt1))
+                    cand.append((p2, nxt2))
+        return cand
+
+    queue = Queue()
+    queue.put((p1, p2, 0))
+    done = set([(p1, p2)])
+    # BFS
+    while queue.empty() == False:
+        q = queue.get()
+        if q[0] == (size - 1, size - 1) or q[1] == (size - 1, size - 1):
+            return q[2]
+        # 움직이고 넣는다.
+        for cand in move(q[0], q[1]):
+            if cand not in done:
+                done.add(cand)
+                queue.put((cand[0], cand[1], q[2] + 1))
+
+        # 회전하고 넣는다.
+        for cand in rotate(q[0], q[1]):
+            if cand not in done:
+                done.add(cand)
+                queue.put((*cand, q[2] + 1))
+
+    return answer
