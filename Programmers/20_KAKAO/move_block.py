@@ -41,6 +41,7 @@ def rotate(board, a, b, i):
     # i : 2/3일때 B가 움직인다.
 
     if a[0] == b[0]:  # 가로일때, row만 변한다.
+
         if i < 2 and board[b[R] + dr[i]][a[C]] == 0:  # 왼쪽이 움직일 때
             nxt_a = [b[R] + dr[i], b[C]]
         elif i >= 2 and board[a[R] + dr[i]][b[C]] == 0:  # 오른쪽이 움직일 때
