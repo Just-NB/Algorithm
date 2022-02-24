@@ -21,11 +21,15 @@ def open(door):
         return True
     else:
         return False
+
+
 def move(start):
     global keys
     ret = 0
     if board[start[0]][start[1]] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' and open(board[start[0]][start[1]]) is False:
         return 0
+    if board[start[0]][start[1]] in 'abcdefghijklmnopqrstuvwxyz':
+        keys = keys | (1 << ord(board[start[0]][start[1]]) - 97)
     if board[start[0]][start[1]] == '$' and visit[start[0]][start[1]] == -1:
         visit[start[0]][start[1]] = keys
         ret += 1
@@ -54,6 +58,7 @@ def move(start):
 
     return ret
 
+
 for tc in range(T):
     R, C = map(int, input().split())
     board = [['' for _ in range(C)] for _ in range(R)]
@@ -70,7 +75,6 @@ for tc in range(T):
                     if t != '*':
                         ENTER.append([r, c])
             board[r][c] = t
-
 
     KEYS = input().strip()
     if KEYS != '0':
