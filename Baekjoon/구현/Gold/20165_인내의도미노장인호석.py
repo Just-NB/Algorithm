@@ -18,16 +18,22 @@ def attack(r: int, c:int, d: str) -> int:
     visit[r][c] = 'F'
     K = domino[r][c] - 1
     while K > 0:
-        nr, nc = r + dir[d][0], c + dir[d][1]
-        if nr < 0 or nr >= N or nc < 0 or nc >= M:
-            break
-        if visit[nr][nc] != 'F':
-            visit[nr][nc] = 'F'
-            K = max(domino[nr][nc] - 1, K - 1)
+        if visit[r][c] == 'S':
+            K = max(domino[r][c], K)
             score += 1
-        else:
-            K -= 1
-        r, c = nr, nc
+        K -= 1
+        visit[r][c] = 'F'
+        r, c = r + dir[d][0], c + dir[d][1]
+        if r < 0 or r >= N or c < 0 or c >= M:
+            break
+
+        # if visit[nr][nc] != 'F':
+        #     visit[nr][nc] = 'F'
+        #     K = max(domino[nr][nc] - 1, K - 1)
+        #     score += 1
+        # else:
+        #     K -= 1
+        # r, c = nr, nc
 
     return score
 
